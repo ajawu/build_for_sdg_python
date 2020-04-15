@@ -44,13 +44,11 @@ def estimator(data):
                                                      0.15, 0)
 
     if isinstance(data['totalHospitalBeds'], int):
-        available_beds = round(data['totalHospitalBeds'] * 0.35, 0)
-        impact['hospitalBedsByRequestedTime'] = round(available_beds -
-                                                      impact['severeCasesByRequestedTime'], 0)
-        severeImpact['hospitalBedsByRequestedTime'] = round(available_beds -
-                                                            severeImpact
-                                                            ['severeCasesByRequestedTime'],
-                                                            0)
+        available_beds = int(data['totalHospitalBeds'] * 0.35)
+        impact['hospitalBedsByRequestedTime'] = available_beds - \
+            impact['severeCasesByRequestedTime']
+        severeImpact['hospitalBedsByRequestedTime'] = available_beds - \
+            severeImpact['severeCasesByRequestedTime']
     else:
         return 'Key "totalHospitalBeds" must be of type int'
 
