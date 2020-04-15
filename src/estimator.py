@@ -33,22 +33,24 @@ def estimator(data):
         return 'Key "periodType" has to be of type "str"'
 
     # Calculate currentlyInfected based on elapsed day sets
-    impact['infectionsByRequestedTime'] = impact['currentlyInfected'] * (2 ** (days // 3))
-    severeImpact['infectionsByRequestedTime'] = severeImpact['currentlyInfected'] * \
-                                                (2 ** (days // 3))
+    impact['infectionsByRequestedTime'] = int(impact['currentlyInfected'] * (2 ** (days // 3)))
+    severeImpact['infectionsByRequestedTime'] = int(severeImpact['currentlyInfected'] *
+                                                    (2 ** (days // 3)))
 
     # Challenge 2
     # calculate severe cases and available beds
-    impact['severeCasesByRequestedTime'] = impact['infectionsByRequestedTime'] * 0.15
-    severeImpact['severeCasesByRequestedTime'] = severeImpact['infectionsByRequestedTime'] * 0.15
+    impact['severeCasesByRequestedTime'] = int(impact['infectionsByRequestedTime'] * 0.15)
+    severeImpact['severeCasesByRequestedTime'] = int(severeImpact['infectionsByRequestedTime'] *
+                                                     0.15)
 
     if isinstance(data['totalHospitalBeds'], int):
-        available_beds = data['totalHospitalBeds'] * 0.35
-        impact['hospitalBedsByRequestedTime'] = available_beds - impact['severeCasesByRequestedTime']
+        available_beds = int(data['totalHospitalBeds'] * 0.35)
+        impact['hospitalBedsByRequestedTime'] = available_beds - \
+            impact['severeCasesByRequestedTime']
         severeImpact['hospitalBedsByRequestedTime'] = available_beds - \
             severeImpact['severeCasesByRequestedTime']
     else:
-        return 'Key "totalHospitalBeds" must be of type str'
+        return 'Key "totalHospitalBeds" must be of type int'
 
     # Challenge 3
     impact['casesForICUByRequestedTime'] = impact['infectionsByRequestedTime'] * 0.05
@@ -58,11 +60,11 @@ def estimator(data):
     severeImpact['casesForVentilatorsByRequestedTime'] = severeImpact['infectionsByRequestedTime'] \
         * 0.02
 
-    impact['dollarsInFlight'] = impact['infectionsByRequestedTime'] * \
-        data['region']['avgDailyIncomePopulation'] * \
-        data['region']['avgDailyIncomeInUSD'] * days
-    severeImpact['dollarsInFlight'] = severeImpact['infectionsByRequestedTime'] * \
-        data['region']['avgDailyIncomePopulation'] * \
-        data['region']['avgDailyIncomeInUSD'] * days
+    impact['dollarsInFlight'] = round(impact['infectionsByRequestedTime'] *
+                                      data['region']['avgDailyIncomePopulation'] *
+                                      data['region']['avgDailyIncomeInUSD'] * days, 2)
+    severeImpact['dollarsInFlight'] = round(severeImpact['infectionsByRequestedTime'] *
+                                            data['region']['avgDailyIncomePopulation'] *
+                                            data['region']['avgDailyIncomeInUSD'] * days, 2)
 
     return {'data': data, 'impact': impact, 'severeImpact': severeImpact}
