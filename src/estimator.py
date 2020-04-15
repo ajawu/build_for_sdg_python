@@ -45,7 +45,7 @@ def estimator(data):
                                                      0.15)
 
     if isinstance(data['totalHospitalBeds'], int):
-        available_beds = round(data['totalHospitalBeds'] * 0.35, 0)
+        available_beds = int(data['totalHospitalBeds'] * 0.35)
         impact['hospitalBedsByRequestedTime'] = available_beds - \
             impact['severeCasesByRequestedTime']
         severeImpact['hospitalBedsByRequestedTime'] = available_beds - \
