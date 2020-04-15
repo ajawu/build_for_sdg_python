@@ -64,10 +64,10 @@ def estimator(data):
 
     impact['dollarsInFlight'] = round(impact['infectionsByRequestedTime'] *
                                       data['region']['avgDailyIncomePopulation'] *
-                                      data['region']['avgDailyIncomeInUSD'] * days, 2)
+                                      data['region']['avgDailyIncomeInUSD'] / days, 2)
     severeImpact['dollarsInFlight'] = round(severeImpact['infectionsByRequestedTime'] *
                                             data['region']['avgDailyIncomePopulation'] *
-                                            data['region']['avgDailyIncomeInUSD'] * days, 2)
+                                            data['region']['avgDailyIncomeInUSD'] / days, 2)
 
     return {'data': data, 'impact': impact, 'severeImpact': severeImpact}
 
