@@ -39,28 +39,31 @@ def estimator(data):
 
     # Challenge 2
     # calculate severe cases and available beds
-    impact['severeCasesByRequestedTime'] = int(impact['infectionsByRequestedTime'] * 0.15)
-    severeImpact['severeCasesByRequestedTime'] = int(severeImpact['infectionsByRequestedTime'] *
-                                                     0.15)
+    impact['severeCasesByRequestedTime'] = round(impact['infectionsByRequestedTime'] * 0.15, 0)
+    severeImpact['severeCasesByRequestedTime'] = round(severeImpact['infectionsByRequestedTime'] *
+                                                     0.15, 0)
 
     if isinstance(data['totalHospitalBeds'], int):
-        available_beds = int(data['totalHospitalBeds'] * 0.35)
-        impact['hospitalBedsByRequestedTime'] = int(available_beds -
-                                                    impact['severeCasesByRequestedTime'])
-        severeImpact['hospitalBedsByRequestedTime'] = int(available_beds -
-                                                          severeImpact['severeCasesByRequestedTime']
-                                                          )
+        available_beds = round(data['totalHospitalBeds'] * 0.35, 0)
+        impact['hospitalBedsByRequestedTime'] = round(available_beds -
+                                                      impact['severeCasesByRequestedTime'], 0)
+        severeImpact['hospitalBedsByRequestedTime'] = round(available_beds -
+                                                            severeImpact
+                                                            ['severeCasesByRequestedTime'],
+                                                            0)
     else:
         return 'Key "totalHospitalBeds" must be of type int'
 
     # Challenge 3
-    impact['casesForICUByRequestedTime'] = int(impact['infectionsByRequestedTime'] * 0.05)
-    severeImpact['casesForICUByRequestedTime'] = int(severeImpact['infectionsByRequestedTime'] *
-                                                     0.05)
+    impact['casesForICUByRequestedTime'] = round(impact['infectionsByRequestedTime'] * 0.05, 0)
+    severeImpact['casesForICUByRequestedTime'] = round(severeImpact['infectionsByRequestedTime'] *
+                                                       0.05, 0)
 
-    impact['casesForVentilatorsByRequestedTime'] = int(impact['infectionsByRequestedTime'] * 0.02)
-    severeImpact['casesForVentilatorsByRequestedTime'] = int(severeImpact
-                                                             ['infectionsByRequestedTime'] * 0.02)
+    impact['casesForVentilatorsByRequestedTime'] = round(impact['infectionsByRequestedTime'] * 0.02,
+                                                         0)
+    severeImpact['casesForVentilatorsByRequestedTime'] = round(severeImpact
+                                                               ['infectionsByRequestedTime'] * 0.02,
+                                                               0)
 
     impact['dollarsInFlight'] = round(impact['infectionsByRequestedTime'] *
                                       data['region']['avgDailyIncomePopulation'] *
