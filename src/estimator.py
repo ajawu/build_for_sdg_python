@@ -65,4 +65,4 @@ def estimator(data):
         data['region']['avgDailyIncomePopulation'] * \
         data['region']['avgDailyIncomeInUSD'] * days
 
-    return {'data': data, 'impact': impact, 'severeImpact:': severeImpact}
+    return {'data': data, 'impact': impact, 'severeImpact': severeImpact}
