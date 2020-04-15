@@ -64,3 +64,5 @@ def estimator(data):
     severeImpact['dollarsInFlight'] = severeImpact['infectionsByRequestedTime'] * \
         data['region']['avgDailyIncomePopulation'] * \
         data['region']['avgDailyIncomeInUSD'] * days
+
+    return {'data': data, 'impact': impact, 'severeImpact:': severeImpact}
