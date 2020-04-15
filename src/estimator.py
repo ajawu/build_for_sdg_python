@@ -6,6 +6,7 @@ def estimator(data):
     """
     # Challenge 1
     # calculate currentlyInfected based on reportedCases
+    print(data)
     try:
         if isinstance(data['reportedCases'], int):
             impact = {'currentlyInfected': data['reportedCases'] * 10}
@@ -53,15 +54,13 @@ def estimator(data):
         return 'Key "totalHospitalBeds" must be of type int'
 
     # Challenge 3
-    impact['casesForICUByRequestedTime'] = round(impact['infectionsByRequestedTime'] * 0.05, 0)
-    severeImpact['casesForICUByRequestedTime'] = round(severeImpact['infectionsByRequestedTime'] *
-                                                       0.05, 0)
+    impact['casesForICUByRequestedTime'] = int(impact['infectionsByRequestedTime'] * 0.05)
+    severeImpact['casesForICUByRequestedTime'] = int(severeImpact['infectionsByRequestedTime'] *
+                                                     0.05)
 
-    impact['casesForVentilatorsByRequestedTime'] = round(impact['infectionsByRequestedTime'] * 0.02,
-                                                         0)
-    severeImpact['casesForVentilatorsByRequestedTime'] = round(severeImpact
-                                                               ['infectionsByRequestedTime'] * 0.02,
-                                                               0)
+    impact['casesForVentilatorsByRequestedTime'] = int(impact['infectionsByRequestedTime'] * 0.02)
+    severeImpact['casesForVentilatorsByRequestedTime'] = int(severeImpact
+                                                             ['infectionsByRequestedTime'] * 0.02)
 
     impact['dollarsInFlight'] = round(impact['infectionsByRequestedTime'] *
                                       data['region']['avgDailyIncomePopulation'] *
@@ -71,3 +70,18 @@ def estimator(data):
                                             data['region']['avgDailyIncomeInUSD'] * days, 2)
 
     return {'data': data, 'impact': impact, 'severeImpact': severeImpact}
+
+#
+# print(estimator({
+#     "region": {
+#         "name": "Africa",
+#         "avgAge": 19.7,
+#         "avgDailyIncomeInUSD": 4,
+#         "avgDailyIncomePopulation": 0.73
+#     },
+#     "periodType": "days",
+#     "timeToElapse": 38,
+#     "reportedCases": 2747,
+#     "population": 92931687,
+#     "totalHospitalBeds": 678874
+# }))
