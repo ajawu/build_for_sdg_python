@@ -39,12 +39,12 @@ def estimator(data):
 
     # Challenge 2
     # calculate severe cases and available beds
-    impact['severeCasesByRequestedTime'] = round(impact['infectionsByRequestedTime'] * 0.15, 0)
-    severeImpact['severeCasesByRequestedTime'] = round(severeImpact['infectionsByRequestedTime'] *
-                                                     0.15, 0)
+    impact['severeCasesByRequestedTime'] = int(impact['infectionsByRequestedTime'] * 0.15)
+    severeImpact['severeCasesByRequestedTime'] = int(severeImpact['infectionsByRequestedTime'] *
+                                                     0.15)
 
     if isinstance(data['totalHospitalBeds'], int):
-        available_beds = int(data['totalHospitalBeds'] * 0.35)
+        available_beds = round(data['totalHospitalBeds'] * 0.35, 0)
         impact['hospitalBedsByRequestedTime'] = available_beds - \
             impact['severeCasesByRequestedTime']
         severeImpact['hospitalBedsByRequestedTime'] = available_beds - \
