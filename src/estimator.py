@@ -45,20 +45,22 @@ def estimator(data):
 
     if isinstance(data['totalHospitalBeds'], int):
         available_beds = int(data['totalHospitalBeds'] * 0.35)
-        impact['hospitalBedsByRequestedTime'] = available_beds - \
-            impact['severeCasesByRequestedTime']
-        severeImpact['hospitalBedsByRequestedTime'] = available_beds - \
-            severeImpact['severeCasesByRequestedTime']
+        impact['hospitalBedsByRequestedTime'] = int(available_beds -
+                                                    impact['severeCasesByRequestedTime'])
+        severeImpact['hospitalBedsByRequestedTime'] = int(available_beds -
+                                                          severeImpact['severeCasesByRequestedTime']
+                                                          )
     else:
         return 'Key "totalHospitalBeds" must be of type int'
 
     # Challenge 3
-    impact['casesForICUByRequestedTime'] = impact['infectionsByRequestedTime'] * 0.05
-    severeImpact['casesForICUByRequestedTime'] = severeImpact['infectionsByRequestedTime'] * 0.05
+    impact['casesForICUByRequestedTime'] = int(impact['infectionsByRequestedTime'] * 0.05)
+    severeImpact['casesForICUByRequestedTime'] = int(severeImpact['infectionsByRequestedTime'] *
+                                                     0.05)
 
-    impact['casesForVentilatorsByRequestedTime'] = impact['infectionsByRequestedTime'] * 0.02
-    severeImpact['casesForVentilatorsByRequestedTime'] = severeImpact['infectionsByRequestedTime'] \
-        * 0.02
+    impact['casesForVentilatorsByRequestedTime'] = int(impact['infectionsByRequestedTime'] * 0.02)
+    severeImpact['casesForVentilatorsByRequestedTime'] = int(severeImpact
+                                                             ['infectionsByRequestedTime'] * 0.02)
 
     impact['dollarsInFlight'] = round(impact['infectionsByRequestedTime'] *
                                       data['region']['avgDailyIncomePopulation'] *
